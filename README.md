@@ -1,14 +1,6 @@
 # factual-assignment
 
-A Clojure library designed to ... well, that part is up to you.
+See assignment url (REDACTED) for a description of the problem.
 
-## Usage
-
-FIXME
-
-## License
-
-Copyright © 2015 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Run tests with `lein test`. You can also try the program out by running `lein
+run sample.dat` or `lein run wrap.dat`.

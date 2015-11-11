@@ -2,15 +2,30 @@
   (:require [clojure.test :refer :all]
             [factual-assignment.core :refer :all]))
 
-(def board (atom ["FYYHNRD" "RLJCINU" "AAWAAHR" "NTKLPNE" "CILFSAP" "EOGOTPN" "HPOLAND"]))
-
-(def char-map (atom (gen-char-map @board)))
-
-(def words (atom ["ITALY" "HOLLAND" "POLAND" "SPAIN" "FRANCE" "JAPAN" "TOGO" "PERU"]))
-
 (deftest a-test
   (testing "Find words in test board."
-    (is (= 0 1))))
+    (let [board-data ["FYYHNRD" "RLJCINU" "AAWAAHR"
+                      "NTKLPNE" "CILFSAP" "EOGOTPN" "HPOLAND"]
+          word-data ["ITALY" "HOLLAND" "POLAND" "SPAIN"
+                     "FRANCE" "JAPAN" "TOGO" "PERU"]]
+      (load-data! [board-data word-data false])
+      (is (find-word "ITALY"))
+      (is (find-word "FRANCE"))
+      (is (find-word "POLAND"))
+      (is (not (find-word "IGURU")))))
 
-;; This works now, nice!
-(map find-word @words)
+  (testing "Another test board"
+    (let [board-data ["ABC" "DEF" "GHI"]
+          word-data ["FED" "CAB" "GAD" "BID" "HIGH"]]
+      (load-data! [board-data word-data false])
+      (is (find-word "FED"))
+      (is (not (find-word "CAB")))))
+
+  (testing "A third test board with wrapping."
+    (let [board-data ["ABC" "DEF" "GHI"]
+          word-data ["FED" "CAB" "GAD" "BID" "HIGH"]]
+      (load-data! [board-data word-data true])
+      (is (find-word "FED"))
+      (is (find-word "CAB"))
+      (is (find-word "GAD"))
+      (is (not (find-word "HIGH"))))))
